@@ -96,6 +96,12 @@ function get_last_name_parts($complete_last_name)
   return array("last_name" => $last_name, "mothers_last_name" => $mothers_last_name);
 }
 
+$alumnos_comunion_1 = 0;
+$alumnos_comunion_2 = 0;
+
+$alumnos_confirmacion_1 = 0;
+$alumnos_confirmacion_2 = 0;
+
 ?>
 
 
@@ -138,7 +144,7 @@ function get_last_name_parts($complete_last_name)
       border-collapse: collapse;
       margin-left: auto;
       margin-right: auto;
-      height: 10.25in;
+      max-height: 10.25in;
     }
 
     .container {
@@ -160,14 +166,13 @@ function get_last_name_parts($complete_last_name)
     thead th {
       padding-left: 0.1in;
       padding-right: 0.1in;
-
       line-height: 1;
     }
 
     thead th {
-      font-size: 12pt;
-      font-weight: 500;
+      font-size: 11.2pt;
       text-align: left;
+      font-weight: bold;
 
       padding-top: 0.12in;
       padding-bottom: 0.12in;
@@ -190,6 +195,21 @@ function get_last_name_parts($complete_last_name)
       padding-top: 0.1in;
       padding-bottom: 0.1in;
     }
+
+    .info {
+      font-size: 9.5pt;
+      color: #1c1c1c;
+      margin-top: 0.2in;
+    }
+
+    .info span {
+      margin-right: 1rem;
+    }
+
+    .info span:last-child {
+      display: block;
+      margin-top: 0.4rem;
+    }
   </style>
 </head>
 
@@ -209,9 +229,8 @@ function get_last_name_parts($complete_last_name)
       </thead>
       <tbody>
         <?php
-
-
         foreach ($table_data as $alumno) {
+          $grado = $alumno['grado'];
 
           $exist_phone_number = !is_null($alumno['numero_celular']) && !empty($alumno['numero_celular']);
 
@@ -223,15 +242,26 @@ function get_last_name_parts($complete_last_name)
           echo '<td>' . get_last_name_parts($alumno['apellidos'])['last_name'] . '</td>';
           echo '<td>' . get_last_name_parts($alumno['apellidos'])['mothers_last_name'] . '</td>';
           echo '<td>' . parse_number($alumno['edad_inscripcion']) . '</td>';
-          echo '<td>' . get_grado($alumno['grado']) . '</td>';
+          echo '<td>' . get_grado($grado) . '</td>';
           echo '<td>' . $phone_number . '</td>';
 
           echo '</tr>';
-        }
 
+          if ($grado === 1) $alumnos_comunion_1++;
+          if ($grado === 2) $alumnos_comunion_2++;
+          if ($grado === 3) $alumnos_confirmacion_1++;
+          if ($grado === 4) $alumnos_confirmacion_2++;
+        }
         ?>
       </tbody>
     </table>
+    <div class="info">
+      <span>Alumnos Comunión 1°: <?php echo $alumnos_comunion_1; ?></span>
+      <span>Alumnos Comunión 2°: <?php echo $alumnos_comunion_2; ?></span>
+      <span>Alumnos Confirmación 1°: <?php echo $alumnos_confirmacion_1; ?></span>
+      <span>Alumnos Confirmación 2°: <?php echo $alumnos_confirmacion_2; ?></span>
+      <span>Total de alumnos: <?php echo sizeof($table_data); ?></span>
+    </div>
   </div>
 </body>
 

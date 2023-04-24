@@ -35,7 +35,7 @@ $data = [];
 
 try {
   $connection = Connection::connect();
-  $statement = $connection->prepare('SELECT * FROM alumnos');
+  $statement = $connection->prepare('SELECT * FROM alumnos WHERE alumno_activo = 1 ORDER BY grado, apellidos');
 
   $statement->execute();
 
@@ -52,6 +52,7 @@ if (sizeof($data) === 0) exit(0);
 
 $generated_table = get_html_table($data);
 $generated_pdf = generate_pdf($generated_table);
+
 
 $generated_pdf->render();
 $generated_pdf->stream("Lista generada", array("Attachment" => false));
