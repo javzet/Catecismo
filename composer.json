@@ -1,0 +1,24 @@
+{
+  "name": "palpatine/alumnos-lista",
+  "description": "Generación y almacenamiento de datos de alumnos catecismo",
+  "type": "project",
+  "require": {
+    "dompdf/dompdf": "^2.0"
+  },
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Palpatine\\AlumnosLista\\": "src/"
+    },
+    "files": [],
+    "classmap": [
+      "src/helpers"
+    ]
+  },
+  "authors": [
+    {
+      "name": "Javier Zetina",
+      "email": "javierzetina.z3@gmail.com"
+    }
+  ]
+}
